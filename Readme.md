@@ -1,0 +1,72 @@
+# Project Aman.Solutions   
+
+## Initiate the project   
+- Start the project   
+  - Create and Activate a virtual environment `mkvirtualenv solutions`   
+  - Install django using pip command `pip install django`   
+  - Start the project using django-admin  `django-admin startproject portfolio .`   
+- Configure the setting.py file   
+  - Create setting with name prod_settings.py   
+  - Override the debug mode and allowed hosts in the prod_settings.py   
+    - Add your EC2 ip address in ALLOWED_HOSTS list.   
+  - Organise settings.py by splitting out the INSTALLED_APPS into 3 parts.   
+    - LOCAL_APPS   
+    - DEFAULT_APPS   
+    - THIRDPARTY_APPS   
+- Setting the database   
+  - Migrate the existing admin page db `python manage.py makemigrations` then `python manage.py migrate`   
+  - Create superuser `python manage.py createsuperuser`   
+- Run the project for the first time   
+  - Run the local_server `python manage.py runserver`   
+- Create a requirement.txt file containing the package name along with its version.   
+  - `pip freeze > requirements.txt`   
+- Commit your changes   
+  - `git init` to initiate a blank repository.   
+  - `git remote add origin https://github.com/neoaman/solutions.git`   
+  - `git pull origin main`   
+  - `git branch dev`   
+  - `git checkout dev`   
+  - `git add .`   
+  - `git commit -m "add: added bare minimum files"`   
+  - `git push origin dev`   
+
+## Setting up the server configurations   
+- Access your aws EC2 server `ssh -i "~/path/to/Credential/something.pem" ubuntu@ec2-<ip address>.us-west-2.compute.amazonaws.com`   
+  - For ease of use create a __connect.sh__ file and put the name `*.sh` in __.gitignore__ file, and put the required commands there.   
+  - Run the __connect.sh__ using source comand `source connect.sh` using terminal.   
+- `sudo apt update` then `sudo apt upgrade`   
+- Check for python3 and pip3   
+  - `python3 --version`   
+  - `sudo apt-get install python3.8`   
+  - `sudo ln -sT /usr/bin/python3 /usr/bin/python`   
+  - `sudo apt-get install python3-pip`   
+  - `sudo ln -sT /usr/bin/pip3 /usr/bin/pip`   
+- Check for Apache2   
+  - `sudo apt-get install apache2`   
+  - `sudo apt-get install libapache2-mod-wsgi-py3`   
+- Install virtual environment for python   
+  - sudo pip install virtualenv   
+  - Activate the environment   
+- Pull the repository   
+  - Create another directory (e.g site `sudo mkdir site` )   
+  - `sudo chown ubuntu:ubuntu`   
+  - `git init`   
+  - `git remote add origin https://github.com/neoaman/solutions.git`   
+  - `git pull origin dev`   
+- Create a activate.sh file to activate the virtualenv (optional)   
+  - Create the activate.sh file to activate the virtual environmant for the project   
+  - Write the command `source /home/ubuntu/venv/< virtual environment name >/bin/activate`   
+  - Write `. activate.sh` to activate the venv.   
+- Install the required packages using `pip install -r requirements.txt`   
+- Check for any errors. `python manage.py chcek`   
+- Migrate the db using `python manage.py migrate`   
+- Create super user using `python manage.py createsuperuser`   
+- Apache configuration   
+  - Go to the apache2 config directory `cd /etc/apache2/sites-available/`   
+  - `sudo nano solutions.conf`   
+  - Or you can copy and modify the custom.conf [file](custom.conf)   
+  - Dissable the default 000-default.conf configuration using `sudo a2dissite 000-default.conf`   
+  - Enable the configuration using `sudo a2ensite solutions.conf`   
+
+## Good practices   
+- Use .env and python-decouple to store csrftoken , debug mode, allowed hosts etc..
