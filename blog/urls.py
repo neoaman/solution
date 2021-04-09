@@ -15,20 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include,re_path
-from django.views.static import serve
 from django.conf import settings
 import datetime,random
 from decouple import config
 
 urlpatterns = [
 
-    path(f'admin-{eval(config("ADMIN_ROUTE",default="True"))}/', admin.site.urls,name="admin"),
-    # LOCAL APPS ROUTES
-    path('api/',include('api.urls'),name="api"),
-    path('blog/',include('blog.urls'),name="blog"),
-    path('toolkit/',include('toolkit.urls'),name="toolkit"),
 
-    # URLS TO SERVE STATIC and MEDIA Files
-    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
-    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+
 ]
