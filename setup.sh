@@ -10,7 +10,7 @@ sudo pip3 install virtualenv
 virtualenv /home/ubuntu/venv/sol
 source /home/ubuntu/venv/sol/bin/activate
 pip install -r requirements.txt
-sudo chown :www-data db.sqlite3
+sudo chown www-data:www-data db.sqlite3
 sudo chown www-data:www-data /var/www/solution
 sudo chown www-data:www-data /var/www/solution/
 sudo chown www-data:www-data /var/www/solution/*
