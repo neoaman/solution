@@ -21,14 +21,14 @@ class mongodb():
 
     def __init__(self,use=False):
         self.use = use
-        if self.use:
-            self.credential = Mongo_Credentials.objects.get(use=self.use,status=True)
-            self.collection = MongoClient(self.credential.uri)[self.credential.db][self.credential.collection]
-        else:
-            print("Credential dont exists")
-        # except:
-        #     self.collection = ""
-        #     print("Credential Not provided")
+        try:
+            if self.use:
+                self.credential = Mongo_Credentials.objects.get(use=self.use,status=True)
+                self.collection = MongoClient(self.credential.uri)[self.credential.db][self.credential.collection]
+            else:
+                print("Credential dont exists")
+        except:
+            print("Credential Not provided")
     
 
     def push(self,query,**kwargs):
