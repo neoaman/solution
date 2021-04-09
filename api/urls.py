@@ -18,9 +18,12 @@ from django.urls import path,include,re_path
 from django.conf import settings
 import datetime,random
 from decouple import config
+from blog import apiView as blog_api
 
+app_name = "api"
 urlpatterns = [
-
-
+    # BLOG
+    path("blog/",blog_api.BlogPostView.as_view(),name="blog"),
+    path("blog/<str:pk>/",blog_api.BlogIndividualPostView.as_view(),name="blog_instance"),
 
 ]

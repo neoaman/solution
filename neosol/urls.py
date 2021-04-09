@@ -22,7 +22,8 @@ from decouple import config
 
 urlpatterns = [
 
-    path(f'admin-{eval(config("ADMIN_ROUTE",default="True"))}/', admin.site.urls,name="admin"),
+    # path(f'admin-{eval(config("ADMIN_ROUTE",default="True"))}/', admin.site.urls,name="admin"),
+    path(f'admin/', admin.site.urls,name="admin"),
     # LOCAL APPS ROUTES
     path('api/',include('api.urls'),name="api"),
     path('blog/',include('blog.urls'),name="blog"),
@@ -30,5 +31,6 @@ urlpatterns = [
 
     # URLS TO SERVE STATIC and MEDIA Files
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    # re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATICFILES_DIRS[0]}),
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
 ]

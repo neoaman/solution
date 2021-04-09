@@ -1,4 +1,5 @@
 from .models import Mongo_Credentials
+from pymongo import MongoClient
 
 class mongodb():
     """
@@ -18,14 +19,17 @@ class mongodb():
     }
     """
 
-    def __init__(self,use=None):
-        self.collection_name = collection
+    def __init__(self,use=False):
         self.use = use
-        try:
-            self.credential = MongoCredential.objects.get(status=True,use=self.use)
+        if self.use:
+            self.credential = Mongo_Credentials.objects.get(use=self.use,status=True)
             self.collection = MongoClient(self.credential.uri)[self.credential.db][self.credential.collection]
-        except:
-            print("Credential Not provided")
+        else:
+            print("Credential dont exists")
+        # except:
+        #     self.collection = ""
+        #     print("Credential Not provided")
+    
 
     def push(self,query,**kwargs):
         kwargs = {i.replace("__","."):j for i,j in kwargs}
