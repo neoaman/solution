@@ -19,10 +19,12 @@ from django.views.static import serve
 from django.conf import settings
 import datetime,random
 from decouple import config
+from .views import home
 
 urlpatterns = [
 
     # path(f'admin-{eval(config("ADMIN_ROUTE",default="True"))}/', admin.site.urls,name="admin"),
+    path('', home,name="home"),
     path(f'admin/', admin.site.urls,name="admin"),
     # LOCAL APPS ROUTES
     path('api/',include('api.urls'),name="api"),
@@ -30,7 +32,7 @@ urlpatterns = [
     path('toolkit/',include('toolkit.urls'),name="toolkit"),
 
     # URLS TO SERVE STATIC and MEDIA Files
-    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
-    # re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATICFILES_DIRS[0]}),
+    # re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATICFILES_DIRS[0]}),
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
 ]

@@ -2,11 +2,11 @@
 from django.db import models
 
 # LOCAL APPS
-from toolkit.mongotools import mongodb
+from toolkit.mongotools import Mongodb
 
 # Create your models here.
 def auto_id():
-    collection = mongodb(use="blog")
+    collection = Mongodb("blog")
     return str(collection.filter({}).count()+1)
 
 class BlogPost(models.Model):

@@ -37,6 +37,7 @@ def md_safe(value):
 
 @register.filter()
 def parent_url(request):
+    print(request.path)
     app_name = request.resolver_match.__dict__['app_name']
     url = reverse(app_name+":home")
     return url

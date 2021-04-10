@@ -12,7 +12,7 @@ from rest_framework.permissions import IsAuthenticated, BasePermission, SAFE_MET
 from .models import BlogPost
 from .serializers import BlogPostSerializer
 # Importing utility functions/class
-from toolkit.mongotools import mongodb
+from toolkit.mongotools import Mongodb
 from toolkit.templatetags.template_extra import md_safe
 
 
@@ -33,7 +33,7 @@ class BlogPostView(APIView):
     name = "Blog API"
 
     serializer_class = BlogPostSerializer
-    collection = mongodb(use="blog")
+    Blog = Mongodb("blog")
     lookup_field = "postId"
     json_fields = BlogPost.json_field
     authentication_classes = [SessionAuthentication,NeoAUTH]
@@ -43,10 +43,10 @@ class BlogPostView(APIView):
 
     def get(self, request, pk=None, format=None):
         # try:
-        #     context = [self.serializer_class(i).data for i in self.collection.filter({})]
+        #     context = [self.serializer_class(i).data for i in self.Blog.filter({})]
         # except:
         #     context = [{"error":"No data Found"},{"info":"Add some data"}]
-        context = [self.serializer_class(i,context={'request':request}).data for i in self.collection.filter({})]
+        context = [self.serializer_class(i,context={'request':request}).data for i in self.Blog.filter({})]
 
         return Response(context,status=status.HTTP_200_OK)
     
@@ -55,7 +55,7 @@ class BlogPostView(APIView):
         data = self.serializer_class(request.data).data
 
         for i in self.json_fields : data[i] = json.loads(data[i])
-        self.collection.add(value=data)
+        self.Blog.add(value=data)
         return Response(self.serializer_class(data,context={'request':request}).data, status=status.HTTP_200_OK)
 
 class BlogIndividualPostView(APIView):
@@ -65,7 +65,7 @@ class BlogIndividualPostView(APIView):
     name = "Blog Instance View"
 
     serializer_class = BlogPostSerializer
-    collection = mongodb(use="blog")
+    Blog = Mongodb("blog")
     lookup_field = "postId"
     json_fields = BlogPost.json_field
 
@@ -76,7 +76,7 @@ class BlogIndividualPostView(APIView):
     
     def get(self, request, pk=None,**kwargs):
         print(request.user)
-        context = self.serializer_class(self.collection.get({self.lookup_field:pk}),context={'request':request}).data
+        context = self.serializer_class(self.Blog.get({self.lookup_field:pk}),context={'request':request}).data
                 
         return Response(context, status=status.HTTP_200_OK)
     
@@ -85,9 +85,9 @@ class BlogIndividualPostView(APIView):
         data = self.serializer_class(request.data).data
         # print(data)
         for i in self.json_fields: data[i] = json.loads(data[i])
-        self.collection.set_all({self.lookup_field:pk},data)
+        self.Blog.set_all({self.lookup_field:pk},data)
 
-        context = self.serializer_class(self.collection.get({self.lookup_field:pk}),context={'request':request}).data
+        context = self.serializer_class(self.Blog.get({self.lookup_field:pk}),context={'request':request}).data
         # return Response(context, status=status.HTTP_200_OK)
 
         return Response(context, status=status.HTTP_200_OK)
@@ -95,14 +95,14 @@ class BlogIndividualPostView(APIView):
     def patch(self, request, pk=None,**kwargs):
         data = self.serializer_class(request.data).data
         for i in self.json_fields: data[i] = json.loads(data[i])
-        self.collection.set_all({self.lookup_field:pk},data)
+        self.Blog.set_all({self.lookup_field:pk},data)
 
-        context = self.serializer_class(self.collection.get({self.lookup_field:pk}),context={'request':request}).data
+        context = self.serializer_class(self.Blog.get({self.lookup_field:pk}),context={'request':request}).data
         return Response(context, status=status.HTTP_200_OK)
     
     def delete(self, request, pk=None,**kwargs):
         
-        self.collection.delete({self.lookup_field:pk})
+        self.Blog.delete({self.lookup_field:pk})
         context={"info":f"Object with ID {pk} Deleted sucessfully"}
 
         return Response(context, status=status.HTTP_200_OK)

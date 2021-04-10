@@ -1,7 +1,7 @@
 from .models import Mongo_Credentials
 from pymongo import MongoClient
 
-class mongodb():
+class Mongodb():
     """
     {
     "push":'collection.update_one(query,{"$push":{f"{locator}":value }})', # Array operation only
@@ -76,10 +76,10 @@ class mongodb():
         query.update(kwargs)
         return self.collection.find_one(query,sort=sort)
 
-    def filter(self,query={},sort=[],**kwargs):
-        kwargs = {i.replace("__","."):j for i,j in kwargs.items() }
-        query.update(kwargs)
-        return self.collection.find(query,sort=sort)
+    def filter(self,query={},**kwargs):
+        # kwargs = {i.replace("__","."):j for i,j in kwargs.items() }
+        # query.update(kwargs)
+        return self.collection.find(query,**kwargs)
 
     def search(self,query,limit=10):
         return self.collection.find({"$text": {"$search": query}}).limit(limit)

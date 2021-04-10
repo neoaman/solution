@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    {% include 'components/head.html' %}
+    {% block head %}{% endblock head %}
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        {% block preload %}
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60" width="60">
+        </div>
+        {% endblock preload %}
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            {% block navbar %}
+            {% include 'components/navbar.html' %}
+            {% endblock navbar %}
+        </nav>
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            {% block brandlogo %}
+            <a href="index3.html" class="brand-link">
+                <img src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                    style="opacity: .8">
+                <span class="brand-text font-weight-light">AdminLTE 3</span>
+            </a>
+            {% endblock brandlogo %}
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                {% block leftbar %}
+                {% include 'components/leftbar.html' %}
+                {% endblock leftbar %}
+            </div>
+            <!--/ Left Sidebar-->
+        </aside>
+        <!--/ Aside-->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    {% block header %}
+                    {% include 'components/header.html' %}
+                    {% endblock header %}
+                </div>
+            </div>
+            <!-- / Content Header (Page header) -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    {% block maincontent %}
+
+                    {% endblock maincontent %}
+                </div>
+            </section>
+            <!-- / Main content -->
+
+        </div>
+        <!-- / Content Wrapper. Contains page content -->
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            {% block footer %}
+                {% include 'components/footer.html' %}            
+            {% endblock footer %}
+        </footer>
+        <!-- / Footer -->
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            {% block rightbar %}
+
+            {% endblock rightbar %}
+        </aside>
+        <!-- /.control-sidebar -->
+
+
+
+
+
+
+
+
+    </div>
+    <!--Wrapper-->
+
+    {% include 'components/scripts.html' %}
+    {% block script %}{% endblock script %}
+
+</body>
+
+<script>
+
+</script>

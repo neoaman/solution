@@ -4,12 +4,12 @@ from rest_framework.reverse import reverse
 
 # LOCAL APPS
 from .models import BlogPost
-from toolkit.mongotools import mongodb
+from toolkit.mongotools import Mongodb
 
 
 def auto_id():
     lookup_field = "postId"
-    collection = mongodb("blog")
+    collection = Mongodb("blog")
     latest_data = collection.get({},sort=[('_id',-1)])
     if not latest_data: latest_data={}
     id_ = str(int(latest_data.get(lookup_field,0))+1)

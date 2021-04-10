@@ -18,9 +18,11 @@ from django.urls import path,include,re_path
 from django.conf import settings
 import datetime,random
 from decouple import config
+from .views import latest_post
 
+app_name = "blog"
 urlpatterns = [
-
+    path('',latest_post,name="latest")
 
 
 ]
