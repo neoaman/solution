@@ -2,6 +2,16 @@
 {% load static %}
 {% load template_extra %}
 
+{% block head %}
+<style>
+    .card_img {
+        background-blend-mode:lighten;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 1%;
+    }
+</style>
+{% endblock head %}
 
 {% block preload %}{% endblock preload %}
 
@@ -34,9 +44,11 @@
     {% for post in output %}
 
     <div class="card">
-        <img class="card-img-top" height="150" src="{{ post.image }}" alt="Card image cap">
-        <div class="text-center mt-1" >
-            {% for i in post.tag %}<span class="btn-sm mx-1 btn-dark">{{ i }}</span>{% endfor %}
+        {% comment %} <img class="card_img card-img-top " src="{{ post.image }}" alt="Card image cap"> {% endcomment %}
+        <div class="card_image py-5" style="background-image:url({{ post.image }});">
+            <div class="text-center">
+                {% for i in post.tag %}<div class="btn-sm m-1 btn-dark d-inline-block">{{ i }}</div>{% endfor %}
+            </div>
         </div>
         <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>

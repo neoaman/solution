@@ -29,7 +29,7 @@ def specificPost(request,postId=1):
     skips = {i:i*limit for i in range(pages) if i*limit < count}
     query = {"postId":postId}
     output = [i for i in Blog.filter(query,projection={"postId":0,"_id":0})]
-    context = {"output":output,"pages":skips,"current_p": c_page}
+    context = {"post":output[0],"pages":skips,"current_p": c_page}
     return render(request,'blog/specific_post.html',context=context)
 
 
