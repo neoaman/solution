@@ -37,12 +37,21 @@ def md_safe(value):
 
 @register.filter()
 def parent_url(request):
-    print(request.path)
-    app_name = request.resolver_match.__dict__['app_name']
-    url = reverse(app_name+":home")
+    parent_app_name = request.resolver_match.__dict__['view_name'].split(":")[-1]
+    # print(request.resolver_match.__dict__)
+    try:
+        url = reverse(parent_app_name+":home")
+    except:
+        url = ""
     return url
 
 @register.filter()
 def parent_name(request):
+    View_name = request.resolver_match.__dict__["view_name"]
     app_name = request.resolver_match.__dict__['app_name']
-    return app_name
+    return View_name.split(":")[-1].replace("_"," ")
+
+@register.filter()
+def prinT(value):
+    print(value)
+    return value

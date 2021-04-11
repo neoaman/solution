@@ -18,11 +18,13 @@ from django.urls import path,include,re_path
 from django.conf import settings
 import datetime,random
 from decouple import config
-from .views import latest_post
+from .views import latest_post,specificPost
 
 app_name = "blog"
 urlpatterns = [
-    path('',latest_post,name="latest")
+    path('',latest_post,name="home"),
+    path('blog/<page>',latest_post,name="latest_p"),
+    path('post/<str:postId>',specificPost,name="specific_post"),
 
 
 ]

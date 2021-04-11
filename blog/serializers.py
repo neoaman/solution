@@ -18,12 +18,12 @@ def auto_id():
 class BlogPostSerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField()
     content = serializers.CharField(
-        max_length=1000,
+        # max_length=1000,
         style={'base_template': 'textarea.html', 'rows': 30})
-    
+    image = serializers.CharField()
     class Meta:
         model = BlogPost
-        fields = ("postId","title","tag","subTitle","content","publishDate","draft","url")
+        fields = ("postId","title","tag","image","subTitle","content","publishDate","draft","url")
 
         extra_kwargs = {'draft': {'default': False},
         'postId':{'initial':auto_id},

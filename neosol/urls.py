@@ -25,7 +25,7 @@ urlpatterns = [
 
     # path(f'admin-{eval(config("ADMIN_ROUTE",default="True"))}/', admin.site.urls,name="admin"),
     path('', home,name="home"),
-    path(f'admin/', admin.site.urls,name="admin"),
+    path('admin/', admin.site.urls),
     # LOCAL APPS ROUTES
     path('api/',include('api.urls'),name="api"),
     path('blog/',include('blog.urls'),name="blog"),

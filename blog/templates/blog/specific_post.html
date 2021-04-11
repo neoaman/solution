@@ -1,0 +1,39 @@
+{% extends 'base_template.html' %}
+{% load template_extra %}
+{% block preload %}{% endblock preload %}
+
+{% block header %}
+<div class="row mb-2">
+    <div class="col-sm-4">
+        <h1 class="m-0">BLOG</h1>
+    </div><!-- /.col -->
+    <div class="col-sm-4">
+    
+    </div>
+    <div class="col-sm-4">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'blog:home' %}">Blog</a></li>
+            <li class="breadcrumb-item active">Dashboard v1</li>
+            <li class="breadcrumb-item active">Dashboard v1</li>
+        </ol>
+    </div><!-- /.col -->
+</div><!-- /.row -->
+{% endblock header %}
+
+
+{% block maincontent %}
+{% for post in output %}
+<div class="card mb-auto">
+  <img class="card-img-top" src="{{ post.image }}" alt="{{ post.image }}">
+  <div class="card-body">
+    <h5 class="card-title">{{ post.title }}</h5>
+    <p class="card-text">Aman{{ post.subTitle }}</p>
+    <p class="card-text">{% for i in post.tag %}<span class="btn m-1 btn-success">{{ i }}</span>{% endfor %}</p>
+    <p class="card-text"><small class="text-muted">{{ post.publishDate }}</small></p>
+    <p class="card-text"><small class="text-muted">{{ post.content|markdown }}</small></p>
+  </div>
+</div>
+{% endfor %}
+
+
+{% endblock maincontent %}

@@ -11,13 +11,17 @@
 
 {% block branding %}
 <span>
-    <a href="#" rel="nofollow" class="navbar-brand">
+    <a href="{% url 'api:home' %}" rel="nofollow" class="navbar-brand">
         NEO api <span class="version">0.1</span>
     </a>
 </span>
 
+<span>
+    <a href="{% url 'home' %}" rel="nofollow" class="navbar-brand">Home</a>
+</span>
+
 <span class="nav navbar-nav pull-right">
-    <a href="#" rel="nofollow" class="navbar-brand">
+    <a href="{{ request|parent_url }}" rel="nofollow" class="navbar-brand">
         {{ request|parent_name|upper }}
     </a>
 </span>
