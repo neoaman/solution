@@ -58,6 +58,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'neosol.urls'
+SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT",False)
 
 TEMPLATES = [
     {
